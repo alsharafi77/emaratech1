@@ -1,0 +1,106 @@
+* Edit the DESCR field to reflect the correct environment
+* e.g. PRD, UAT, UAT, Prod
+*
+* Edit the REPOS field to reflec tthe correct cluster name
+*
+
+
+define qlocal('PWA.ESB.RETRY01.INP') replace
+define qlocal('PWA.CRMS.CREATESR01.REQ.FAIL') replace
+define qlocal('PWA.ESB.RETRY01.INP') replace
+define qlocal('PWA.ESB.RETRY01.INP.BOQ') replace
+define qlocal('DESTINATIONLISTQ') replace
+define qlocal('RETRY_TIMERQ') replace
+
+DEFINE QLOCAL ('Dead.Letter') +
+       DESCR('MQSeries Dead Letter Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       NOHARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(NONE) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       REPLACE
+
+
+DEFINE CHANNEL ('	') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('Administration Client Channel') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER('mqm') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       REPLACE
+
+
+DEFINE QLOCAL ('Default.Transmission') +
+       DESCR('Default XmitQ ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       MAXDEPTH(5000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       REPLACE
+
+DEFINE LISTENER (LISTNER_1414) TRPTYPE(TCP) PORT(1414) CONTROL(QMGR) REPLACE
+START  LISTENER (LISTNER_1414)
