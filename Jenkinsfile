@@ -2,7 +2,7 @@ node {
     dir("/root/"){
     	checkout scm
 
-     	print "Francis - finished checkout......"
+     	print "Finished checkout......"
 
     	env.DOCKER_API_VERSION="1.23"
     	appName = "default/iibmqashghal"
@@ -12,7 +12,7 @@ node {
     	env.BUILDIMG=imageName
 
     	docker.withRegistry('https://mycluster.icp:8500/', 'docker'){
-       		print "Francis - within docker.with registry, build ID: ${env.BUILD_ID}"
+       		print "Within docker.with registry, build ID: ${env.BUILD_ID}"
     		stage "Build"
 
         	def pcImg = docker.build("mycluster.icp:8500/default/iibmqashghal:${env.BUILD_ID}", "-f Dockerfile .")

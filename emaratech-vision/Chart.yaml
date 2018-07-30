@@ -8,8 +8,8 @@
 #  IBM Corporation - initial API and implementation
 ###############################################################################
 apiVersion: v1
-description: Ashghal Helm Chart for IIB and MQ
-name: ashghal-esb
+description: Emaratech Helm Chart for IIB and MQ
+name: emaratech-vision
 version: 1.0.0
 tillerVersion: ">=2.4.1"
 icon:  https://raw.githubusercontent.com/ot4i/iib-helm/master/ibm-integration-bus-dev/IBM_Integration_Bus_Icon.svg?sanitize=true 
